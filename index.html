@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <title>Dados da Planilha</title>
+  </head>
+  <body>
+
+	<div id="container" class="container">
+	  	<table class="table" id="dados">
+	  		<thead class="thead-dark">
+	  		</thead>
+	  		<tbody>
+	  		</tbody>
+	  	</table>
+  	</div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+
+	<script type='text/javascript'>
+
+		function montarTabela(dados) {
+			var header = dados.Tabela.columnNames;
+			var body = dados.Tabela.elements;
+
+			var head = "";
+
+			header.forEach(function(valor){
+				head += "<th>" + valor + "</th>";
+			});
+
+			$("#dados thead").html("<tr>" + head + "</tr>");
+
+			body.forEach(function(objeto){
+
+				var valores = Object.values(objeto);
+				var linha = "";
+
+				valores.forEach(function(valor){
+					linha += "<td>" + valor + "</td>";
+				});
+
+				$("#dados tbody").append("<tr>" + linha + "</tr>");
+			});
+		}
+
+		function iniciar() {
+		  	Tabletop.init({ 
+			  	key: 'https://docs.google.com/spreadsheets/d/1siGMTbihkl_d07Mk_GUZwysLL_aFFxa__bNKlrsDOlw/',
+		        callback: montarTabela,
+		        simpleSheet: false  
+	    	});
+		}
+
+		window.addEventListener('DOMContentLoaded', iniciar);
+	</script>
+  </body>
+</html>
